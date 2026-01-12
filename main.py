@@ -129,11 +129,20 @@ def inpenter():
         print("Input Confirmed:", link)
         if is_valid_youtube_link(link):
             lv = []
+            lresolutions = []
             yt = YouTube(link)
             resolutionsvid = yt.streams.order_by('resolution').filter(mime_type='video/mp4')
+            print(resolutionsvid)
             for j in resolutionsvid:
-                if ("av01" in j.video_codec) or (j.is_progressive == True):
+                if (j.is_progressive == True):
                     lv.append(j)
+                    lresolutions.append(j.resolution)
+                elif ("av01" in j.video_codec):
+                    if(j.resolution not in lresolutions):
+                        lv.append(j)
+
+
+            print(lv)
             b1.enabled = True
             b1.on_click = Func(show_resolution_menu , link ,lv)
             b2.on_click = Func(submit , link ,"audio")
