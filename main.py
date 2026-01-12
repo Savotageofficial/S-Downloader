@@ -20,7 +20,7 @@ def safe_filename(name: str) -> str:
 
 link = ""
 
-app = Ursina(development_mode = False , title="SafwatDownloader" , icon = "textures/Logo.ico" , fullscreen=False, borderless=False)
+app = Ursina(development_mode = False , title="S-Downloader" , icon = "textures/Logo.ico" , fullscreen=False, borderless=False)
 window.exit_button.visible = False
 
 bg = Entity(parent=scene, model="quad" , texture="textures/Abstract-White-Background.mp4" ,scale=(20,10) , x = 0 , y =0 , z= 1)
@@ -69,7 +69,7 @@ def hide_resolution_menu():
 
 
 
-# title = Text("SafwatDownloader" , position = (-0.2 , 0.44 , 0) , color = color.black , scale=(2,2) ,  x=0, origin=(0, 0))
+# title = Text("S-Downloader" , position = (-0.2 , 0.44 , 0) , color = color.black , scale=(2,2) ,  x=0, origin=(0, 0))
 
 
 download_status = Text("Downloading!" , position = (-0.2 , 0 , 0) , color = color.black , scale=(2,2) , x=0, origin=(0, 0))
