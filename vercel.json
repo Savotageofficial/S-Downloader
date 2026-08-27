@@ -1,0 +1,13 @@
+{
+    "builds": [{
+        "src": "S_Downloader_test/wsgi.py",
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.14" }
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "S_Downloader_test/wsgi.py"
+        }
+    ]
+}
