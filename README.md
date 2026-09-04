@@ -108,10 +108,6 @@ WhiteNoise handles static file serving in production, so no separate static file
 
 This tool is intended for downloading content you have the right to download (e.g. your own videos, Creative Commons content, or content where the copyright holder has given permission). Please respect YouTube's Terms of Service and applicable copyright laws in your jurisdiction when using this tool.
 
-## License
-
-No license has been specified for this project yet. Consider adding one (e.g. MIT) if you plan to accept contributions or allow reuse.
-
 ## Author
 
-**Safwat** ([@Savotageofficial](https://github.com/Savotageofficial))
+**Mohamed Safwat** ([@Savotageofficial](https://github.com/Savotageofficial))
