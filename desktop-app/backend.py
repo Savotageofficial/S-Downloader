@@ -4,7 +4,7 @@ import shutil
 import sys
 import threading
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 import yt_dlp
 
@@ -85,6 +85,7 @@ class DesktopApi:
                         'abr': f"{round(fmt.get('abr') or 0)} kbps ({fmt.get('ext')})"}
 
             result = {'type': 'video', 'title': metadata.get('title'), 'thumbnail': metadata.get('thumbnail'),
+                      'embed_id': f"https://www.youtube.com/embed/{quote(str(metadata['id']), safe='')}" if metadata.get('id') else None,
                       'resolutions': [serialize(f) for f in sorted(video.values(), key=lambda f: f.get('height') or 0, reverse=True)],
                       'audio': [serialize(f) for f in audio.values()]}
             with self._lock:

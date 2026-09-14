@@ -89,9 +89,9 @@ function SearchBar({ onSubmit }) {
       </form>
 
       <div className="features">
-        <div className="feature-badge">⚡ Lightning Fast</div>
-        <div className="feature-badge">🆓 100% Free</div>
-        <div className="feature-badge">🔒 Secure & Private</div>
+        <a className="download-btn" href="/download-app/" style={{ textDecoration: 'none' }}>
+          Download Windows App
+        </a>
       </div>
     </div>
   );

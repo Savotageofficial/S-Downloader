@@ -4,7 +4,7 @@ This application bundles or uses the following open-source projects. Keep this n
 
 - React / React DOM: MIT, https://github.com/facebook/react/blob/main/LICENSE
 - pywebview: BSD-3-Clause, https://github.com/r0x0r/pywebview/blob/master/LICENSE
-- yt-dlp: Unlicense (Python source), https://github.com/yt-dlp/yt-dlp/blob/master/LICENSE
+- yt-dlp: Unlicense with ISC/MIT components, https://github.com/yt-dlp/yt-dlp/blob/master/LICENSE and https://github.com/yt-dlp/yt-dlp/blob/master/THIRD_PARTY_LICENSES.txt
 - yt-dlp-ejs: Unlicense, https://github.com/yt-dlp/ejs
 - Python: PSF license, https://docs.python.org/3/license.html
 - Node.js and its bundled dependencies: https://github.com/nodejs/node/blob/main/LICENSE

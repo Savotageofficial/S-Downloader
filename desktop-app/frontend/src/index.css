@@ -533,6 +533,11 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: -0.02em;
 }
 
+/* Keep the embedded player's controls and branding free of the thumbnail overlay. */
+.video-player-wrapper::after {
+  content: none;
+}
+
 .options-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

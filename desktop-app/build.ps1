@@ -25,7 +25,7 @@ Copy-Item frontend\node_modules\react\LICENSE vendor\REACT-LICENSE.txt -Force
 Copy-Item frontend\node_modules\react-dom\LICENSE vendor\REACT-DOM-LICENSE.txt -Force
 Run-Checked $runtime @('collect_licenses.py')
 Run-Checked $runtime @('-m', 'unittest', 'discover', '-s', 'tests', '-v')
-Run-Checked $runtime @('-m', 'PyInstaller', '--noconfirm', '--clean', '--windowed', '--name', 'S-Downloader', '--add-data', 'ui;ui', '--add-data', 'vendor;vendor', '--add-data', 'THIRD-PARTY-NOTICES.md;.', '--collect-all', 'yt_dlp', '--collect-all', 'yt_dlp_ejs', 'main.py')
+Run-Checked $runtime @('-m', 'PyInstaller', '--noconfirm', '--clean', '--windowed', '--name', 'S-Downloader', '--icon', 'assets/app.ico', '--add-data', 'assets;assets', '--add-data', 'ui;ui', '--add-data', 'vendor;vendor', '--add-data', 'THIRD-PARTY-NOTICES.md;.', '--collect-all', 'yt_dlp', '--collect-all', 'yt_dlp_ejs', 'main.py')
 $smokeResult = Join-Path $PSScriptRoot 'dist\self-test.json'
 Run-Checked $runtime @('-c', 'import subprocess,sys; subprocess.run([sys.argv[1], "--self-test", sys.argv[2]], check=True, timeout=60)', (Join-Path $PSScriptRoot 'dist\S-Downloader\S-Downloader.exe'), $smokeResult)
 Copy-Item README.md dist\S-Downloader\README.md -Force

@@ -42,7 +42,25 @@ function VideoOptions({ data, onBack }) {
       </button>
 
       <div className="video-header">
-        {data.thumbnail && <div className="video-thumbnail-wrapper"><img className="video-thumbnail" src={data.thumbnail} alt={data.title} /></div>}        <h2 className="video-title">{data.title}</h2>
+        {data.embed_id ? (
+          <div className="video-thumbnail-wrapper video-player-wrapper">
+            <iframe
+              key={data.embed_id}
+              className="video-thumbnail"
+              src={`${data.embed_id}?playsinline=1&origin=${encodeURIComponent(window.location.origin)}`}
+              title={`Play ${data.title || 'YouTube video'}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        ) : data.thumbnail && (
+          <div className="video-thumbnail-wrapper">
+            <img className="video-thumbnail" src={data.thumbnail} alt={data.title} />
+          </div>
+        )}
+        <h2 className="video-title">{data.title}</h2>
       </div>
 
       <div className="desktop-status glass-card" role="status" aria-live="polite">

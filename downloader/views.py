@@ -4,6 +4,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from pytubefix import YouTube, Playlist
 from pytubefix.exceptions import VideoUnavailable, RegexMatchError
 import yt_dlp
+from pathlib import Path
+from django.conf import settings
+from django.http import Http404
 
 def get_client_ip(request):
     """
@@ -278,3 +281,15 @@ def robots_txt(request):
 def download(request):
     stream = request.POST.get("stream")
     return redirect(stream.url)
+
+
+def download_app(request):
+    archive = Path(settings.BASE_DIR) / 'desktop-app' / 'dist' / 'S-Downloader-Windows-x64.zip'
+    try:
+        archive_file = archive.open('rb')
+    except FileNotFoundError:
+        raise Http404('The Windows app download is not available yet.') from None
+    response = FileResponse(archive_file, as_attachment=True,
+                            filename=archive.name, content_type='application/zip')
+    response['Cache-Control'] = 'no-cache'
+    return response
