@@ -6,7 +6,7 @@
 
 **S-Downloader** is a free, web-based YouTube video and playlist downloader built with Django. It lets users paste a YouTube URL and download videos (or entire playlists) quickly and securely, without needing any extra software.
 
-🔗 Live demo: [s-downloader-test.vercel.app](https://s-downloader-test.vercel.app/)
+🔗 Live demo: [s-downloader.duckdns.org](https://s-downloader.duckdns.org/)
 
 ## Features
 
