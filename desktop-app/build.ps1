@@ -1,4 +1,4 @@
-param([string]$Python = 'python', [string]$Npm = 'npm.cmd')
+param([string]$Python = 'python', [string]$Npm = 'npm.cmd', [string]$FfmpegDir = '', [switch]$Installer, [string]$Version = '1.0.1')
 $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
 function Run-Checked([string]$Program, [string[]]$Arguments) {
@@ -17,6 +17,21 @@ try {
     Run-Checked $Npm @('run', 'build')
 } finally { Pop-Location }
 New-Item -ItemType Directory -Force vendor | Out-Null
+if ($FfmpegDir) {
+    New-Item -ItemType Directory -Force vendor\ffmpeg | Out-Null
+    foreach ($tool in @('ffmpeg.exe', 'ffprobe.exe')) {
+        Copy-Item -LiteralPath (Join-Path $FfmpegDir $tool) -Destination vendor\ffmpeg -Force
+    }
+    $license = Join-Path (Split-Path $FfmpegDir -Parent) 'LICENSE'
+    if (Test-Path $license) { Copy-Item -LiteralPath $license -Destination vendor\ffmpeg -Force }
+}
+foreach ($tool in @('ffmpeg.exe', 'ffprobe.exe', 'LICENSE')) {
+    if (!(Test-Path (Join-Path 'vendor\ffmpeg' $tool))) {
+        throw 'Provide an FFmpeg Windows distribution with ffmpeg.exe, ffprobe.exe and its LICENSE using -FfmpegDir <path-to-bin>.'
+    }
+}
+Run-Checked '.\vendor\ffmpeg\ffmpeg.exe' @('-version')
+Run-Checked '.\vendor\ffmpeg\ffprobe.exe' @('-version')
 $nodePath = (Get-Command node.exe -ErrorAction Stop).Source
 Copy-Item -LiteralPath $nodePath -Destination vendor\node.exe -Force
 $nodeVersion = (& $nodePath --version).Trim()
@@ -32,3 +47,4 @@ Copy-Item README.md dist\S-Downloader\README.md -Force
 Copy-Item THIRD-PARTY-NOTICES.md dist\S-Downloader\THIRD-PARTY-NOTICES.md -Force
 Compress-Archive -Path dist\S-Downloader -DestinationPath dist\S-Downloader-Windows-x64.zip -Force
 Write-Host 'Ready: dist\S-Downloader-Windows-x64.zip'
+if ($Installer) { & "$PSScriptRoot\build-installer.ps1" -Version $Version }

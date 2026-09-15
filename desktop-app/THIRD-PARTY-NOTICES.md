@@ -11,3 +11,5 @@ This application bundles or uses the following open-source projects. Keep this n
 - PyInstaller: GPL with a bootloader exception permitting distribution of bundled applications, https://pyinstaller.org/en/stable/license.html
 
 Python package metadata, including dependency licenses collected by PyInstaller, is included in the application bundle. Node's full license is included under vendor/NODE-LICENSE.txt. This list does not grant a license to the website's original branding or source code; those remain under the repository owner's terms.
+
+- FFmpeg / ffprobe: bundled Gyan 8.1.2 full Windows build, GPL-3.0-or-later. License, upstream README and distribution manifest are in vendor/ffmpeg (under _internal in the packaged app). Build distribution: https://github.com/GyanD/codexffmpeg/releases/tag/8.1.2 ; FFmpeg source: https://ffmpeg.org/download.html . Preserve the license and meet the corresponding-source requirements when redistributing this build.

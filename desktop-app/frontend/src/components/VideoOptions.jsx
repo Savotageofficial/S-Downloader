@@ -12,7 +12,7 @@ function VideoOptions({ data, onBack }) {
   const [status, setStatus] = useState({ state: 'idle', progress: 0, message: '' });
   const [error, setError] = useState('');
   const [starting, setStarting] = useState(false);
-  const busy = starting || ['choosing', 'downloading'].includes(status.state);
+  const busy = starting || ['choosing', 'downloading', 'merging', 'verifying'].includes(status.state);
   useEffect(() => {
     let active = true;
     const timer = setInterval(async () => {
@@ -66,27 +66,28 @@ function VideoOptions({ data, onBack }) {
       <div className="desktop-status glass-card" role="status" aria-live="polite">
         <p>{error || status.message || 'Choose a stream, then choose where to save it on your PC.'}</p>
         {busy && <progress max="100" value={status.progress} aria-label="Download progress" />}
-        {status.state === 'downloading' && <button className="back-btn" onClick={async () => { try { await (await api()).cancel_download(); } catch (err) { setError(err.message); } }}>Cancel download</button>}
+        {['downloading', 'merging', 'verifying'].includes(status.state) && <button className="back-btn" onClick={async () => { try { await (await api()).cancel_download(); } catch (err) { setError(err.message); } }}>Cancel download</button>}
       </div>
       <div className="options-grid">
         {/* Video Streams */}
         <div className="glass-card">
           <div className="card-header">
             <span className="card-icon">🎬</span>
-            <h3>Video</h3>
+            <h3>Video with audio</h3>
           </div>
           <div className="stream-list">
             {data.resolutions && data.resolutions.length > 0 ? (
               data.resolutions.map((stream, i) => (
                 <div className="stream-item" key={i}>
                   <div className="stream-info">
-                    <span className="resolution-badge">{stream.resolution}</span>
-                    {!stream.is_progressive && <span className="no-audio-badge">No Audio</span>}
+                    <span className="resolution-badge" title={stream.format_note}>{stream.resolution}</span>
+                    <span className="filesize">{stream.container?.toUpperCase()} · {stream.codec}{stream.fps ? ` · ${stream.fps} fps` : ''} · #{stream.format_id}</span>
+                    <span className={stream.has_audio ? 'audio-included-badge' : 'no-audio-badge'}>{stream.has_audio ? 'Audio included' : stream.unavailable_reason}</span>
                     {stream.filesize && <span className="filesize">{formatSize(stream.filesize)}</span>}
                   </div>
                   <button
                     className="download-btn"
-                    disabled={busy} onClick={() => download(stream)}
+                    disabled={busy || !!stream.unavailable_reason} onClick={() => download(stream)}
                   >
                     Download
                   </button>

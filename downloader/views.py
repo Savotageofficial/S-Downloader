@@ -284,7 +284,7 @@ def download(request):
 
 
 def download_app(request):
-    archive = Path(settings.BASE_DIR) / 'desktop-app' / 'assets' / 'S-Downloader-Windows-x64.zip'
+    archive = Path(settings.BASE_DIR) / 'desktop-app' / 'assets' / 'S-Downloader-Setup-1.0-x64.exe'
     try:
         archive_file = archive.open('rb')
     except FileNotFoundError:

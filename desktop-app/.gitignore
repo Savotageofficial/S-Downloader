@@ -6,3 +6,5 @@ dist/
 ui/
 vendor/
 *.spec
+/installer/
+/tests/

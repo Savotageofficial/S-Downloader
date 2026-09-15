@@ -14,15 +14,20 @@ def main():
         import clr
         import yt_dlp_ejs
         from yt_dlp.version import __version__ as downloader_version
+        from media import media_tool
         assert (root / 'ui' / 'index.html').is_file()
         assert (root / 'assets' / 'app.ico').is_file()
         assert (root / 'ui' / 'static' / 'downloader' / 'pictures' / 'Logo.png').is_file()
         version = subprocess.check_output([str(root / 'vendor' / 'node.exe'), '--version'],
                                           creationflags=subprocess.CREATE_NO_WINDOW, text=True).strip()
         assert DesktopApi().analyze('file:///test')['type'] == 'error'
+        ffmpeg_version = subprocess.check_output([media_tool('ffmpeg'), '-version'],
+                                                creationflags=subprocess.CREATE_NO_WINDOW, text=True).splitlines()[0]
+        subprocess.check_output([media_tool('ffprobe'), '-version'],
+                                creationflags=subprocess.CREATE_NO_WINDOW, text=True)
         Path(sys.argv[2]).write_text(json.dumps({'ok': True, 'node': version,
                                                'python': sys.version, 'frontend': True,
-                                               'yt_dlp': downloader_version}), encoding='utf-8')
+                                               'yt_dlp': downloader_version, 'ffmpeg': ffmpeg_version}), encoding='utf-8')
         return
     entry = root / 'ui' / 'index.html'
     if not entry.is_file():
