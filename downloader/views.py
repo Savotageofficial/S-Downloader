@@ -7,6 +7,8 @@ import yt_dlp
 from pathlib import Path
 from django.conf import settings
 from django.http import Http404
+from django.views.decorators.http import require_GET
+
 
 def get_client_ip(request):
     """
@@ -283,13 +285,11 @@ def download(request):
     return redirect(stream.url)
 
 
+@require_GET
 def download_app(request):
-    archive = Path(settings.BASE_DIR) / 'desktop-app' / 'assets' / 'S-Downloader-Setup-1.0-x64.exe'
-    try:
-        archive_file = archive.open('rb')
-    except FileNotFoundError:
-        raise Http404('The Windows app download is not available yet.') from None
-    response = FileResponse(archive_file, as_attachment=True,
-                            filename=archive.name, content_type='application/zip')
-    response['Cache-Control'] = 'no-cache'
+    if not settings.DESKTOP_INSTALLER_URL:
+        return HttpResponse("Download temporarily unavailable.", status=503)
+
+    response = redirect(settings.DESKTOP_INSTALLER_URL)
+    response["Cache-Control"] = "no-store"
     return response

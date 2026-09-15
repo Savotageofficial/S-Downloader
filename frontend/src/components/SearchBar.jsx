@@ -90,9 +90,6 @@ function SearchBar({ onSubmit }) {
 
       <div className="features">
         <a className="download-btn" href="/download-app/" style={{ textDecoration: 'none' }}>
-          Download Windows Zip
-        </a>
-        <a className="download-btn" href="/download-zip/" style={{ textDecoration: 'none' }}>
           Download Windows Setup
         </a>
       </div>

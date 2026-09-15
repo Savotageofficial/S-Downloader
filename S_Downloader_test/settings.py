@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ['*']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
+DESKTOP_INSTALLER_URL = os.environ.get("DESKTOP_INSTALLER_URL", "")
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -116,6 +118,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
 
 SITE_ID = 1
 
