@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 DESKTOP_INSTALLER_URL = os.environ.get("DESKTOP_INSTALLER_URL", "")
+ANDROID_APK_URL = os.environ.get("ANDROID_APK_URL", "")
 
 
 INSTALLED_APPS = [

@@ -293,3 +293,12 @@ def download_app(request):
     response = redirect(settings.DESKTOP_INSTALLER_URL)
     response["Cache-Control"] = "no-store"
     return response
+
+@require_GET
+def download_android(request):
+    if not settings.ANDROID_APK_URL:
+        return HttpResponse("Download temporarily unavailable.", status=503)
+
+    response = redirect(settings.ANDROID_APK_URL)
+    response["Cache-Control"] = "no-store"
+    return response

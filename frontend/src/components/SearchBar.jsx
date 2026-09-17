@@ -92,6 +92,9 @@ function SearchBar({ onSubmit }) {
         <a className="download-btn" href="/download-app/" style={{ textDecoration: 'none' }}>
           Download Windows Setup
         </a>
+        <a className="download-btn" href="/download-android/" style={{ textDecoration: 'none' }}>
+          Download Android APK
+        </a>
       </div>
     </div>
   );
